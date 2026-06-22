@@ -1,0 +1,1 @@
+/api/*  https://your-backend-service-url.com/api/:splat  200

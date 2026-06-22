@@ -1,0 +1,40 @@
+# ── Node modules ──────────────────────────────────────────
+node_modules/
+*/node_modules/
+
+# ── Build outputs ─────────────────────────────────────────
+frontend/dist/
+backend/public/
+
+# ── Environment files (secrets) ───────────────────────────
+.env
+backend/.env
+*.env.local
+
+# ── Temp / downloaded videos ──────────────────────────────
+backend/temp/
+*.mp4
+*.m4a
+*.webm
+*.mkv
+
+# ── Backup folder ─────────────────────────────────────────
+_backup_*/
+
+# ── OS files ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor files ──────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Logs ──────────────────────────────────────────────────
+*.log
+npm-debug.log*
+
+# ── cloudflared binary ────────────────────────────────────
+cloudflared.exe

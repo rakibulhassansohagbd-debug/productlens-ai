@@ -1,0 +1,14 @@
+# Docker build এ এগুলো দরকার নেই
+node_modules/
+*/node_modules/
+frontend/dist/
+backend/public/
+backend/temp/
+_backup_*/
+*.log
+*.mp4
+*.m4a
+.git/
+.gitignore
+README.md
+cloudflared.exe
