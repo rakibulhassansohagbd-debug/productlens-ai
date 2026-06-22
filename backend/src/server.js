@@ -39,6 +39,8 @@ app.get('/health', (_req, res) => {
   res.json({
     status: 'ok',
     service: 'ProductLens AI Backend',
+    version: 'v6-no-format-restriction',
+    cookiesEnabled: !!process.env.YOUTUBE_COOKIES,
     timestamp: new Date().toISOString(),
   });
 });

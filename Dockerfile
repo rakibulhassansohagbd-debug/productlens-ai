@@ -22,10 +22,12 @@ RUN apt-get update && apt-get install -y \
     python3 \
     && rm -rf /var/lib/apt/lists/*
 
-# Install yt-dlp binary
+# Force fresh yt-dlp install (cache bust via date argument)
+ARG CACHEBUST=2026-06-22
 RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
     -o /usr/local/bin/yt-dlp \
-    && chmod a+rx /usr/local/bin/yt-dlp
+    && chmod a+rx /usr/local/bin/yt-dlp \
+    && /usr/local/bin/yt-dlp --version
 
 WORKDIR /app
 
