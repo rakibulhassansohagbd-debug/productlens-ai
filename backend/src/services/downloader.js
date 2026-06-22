@@ -184,8 +184,8 @@ export function downloadVideo(youtubeUrl, outputTemplate, fileBase, tempDir, onP
     }
 
     const args = [
-      // No -f flag: let yt-dlp auto-select the best available format
-      // This is most compatible across all regions and player clients
+      '-f', 'b',             // 'b' = best single pre-merged format (no separate stream merge needed)
+      '--no-check-formats',  // skip format availability pre-check (Railway IP issue)
       '--no-playlist',
       '--merge-output-format', 'mp4',
       '--no-warnings',
