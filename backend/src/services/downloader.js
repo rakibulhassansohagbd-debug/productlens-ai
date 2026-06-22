@@ -168,7 +168,7 @@ export function downloadVideo(youtubeUrl, outputTemplate, fileBase, tempDir, onP
     const ffmpegDir = findFfmpeg();
 
     const args = [
-      '-f', 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best',
+      '-f', 'bestvideo*+bestaudio*/best',
       '--no-playlist',
       '--merge-output-format', 'mp4',
       '--no-warnings',
