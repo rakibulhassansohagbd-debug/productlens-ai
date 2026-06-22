@@ -174,7 +174,36 @@ export function downloadVideo(youtubeUrl, outputTemplate, fileBase, tempDir, onP
       '--no-warnings',
       '--newline',
       '-o', outputTemplate,
+
+      // ── Bot detection bypass ──────────────────────────────────────────────
+      // Use Android + web player clients — bypasses YouTube's bot check on
+      // cloud servers without needing cookies.
+      '--extractor-args', 'youtube:player_client=android,web',
+
+      // Mimic a real browser user-agent
+      '--user-agent', 'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
+
+      // Add standard browser headers
+      '--add-header', 'Accept-Language:en-US,en;q=0.9',
+      '--add-header', 'Accept:text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     ];
+
+    // ── Cookies support (Railway env var) ───────────────────────────────────
+    // If YOUTUBE_COOKIES env var is set (base64-encoded cookies.txt),
+    // write to a temp file and pass to yt-dlp.
+    const cookiesEnv = process.env.YOUTUBE_COOKIES;
+    let cookiesTempFile = null;
+    if (cookiesEnv) {
+      try {
+        cookiesTempFile = path.join(tempDir, `cookies_${Date.now()}.txt`);
+        const cookiesContent = Buffer.from(cookiesEnv, 'base64').toString('utf8');
+        fs.writeFileSync(cookiesTempFile, cookiesContent);
+        args.push('--cookies', cookiesTempFile);
+        console.log('[Downloader] Using YouTube cookies from environment variable.');
+      } catch (e) {
+        console.warn('[Downloader] Failed to write cookies file:', e.message);
+      }
+    }
 
     // Explicitly tell yt-dlp where FFmpeg is — required for video+audio merge
     if (ffmpegDir) {
