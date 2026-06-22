@@ -184,8 +184,8 @@ export function downloadVideo(youtubeUrl, outputTemplate, fileBase, tempDir, onP
     }
 
     const args = [
-      // Format: best mp4 video+audio, fallback to anything available
-      '-f', 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo[ext=mp4]/best[ext=mp4]/bestvideo+bestaudio/best',
+      // No -f flag: let yt-dlp auto-select the best available format
+      // This is most compatible across all regions and player clients
       '--no-playlist',
       '--merge-output-format', 'mp4',
       '--no-warnings',
@@ -201,6 +201,7 @@ export function downloadVideo(youtubeUrl, outputTemplate, fileBase, tempDir, onP
     if (cookiesTempFile) {
       args.push('--cookies', cookiesTempFile);
     }
+
 
 
     // Explicitly tell yt-dlp where FFmpeg is — required for video+audio merge
